@@ -1,0 +1,14 @@
+/Users/ericmokuma/Documents/eleShoppingApp_em/bin/Debug/net10.0/eleShoppingApp
+/Users/ericmokuma/Documents/eleShoppingApp_em/bin/Debug/net10.0/eleShoppingApp.deps.json
+/Users/ericmokuma/Documents/eleShoppingApp_em/bin/Debug/net10.0/eleShoppingApp.runtimeconfig.json
+/Users/ericmokuma/Documents/eleShoppingApp_em/bin/Debug/net10.0/eleShoppingApp.dll
+/Users/ericmokuma/Documents/eleShoppingApp_em/bin/Debug/net10.0/eleShoppingApp.pdb
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.AssemblyInfoInputs.cache
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.AssemblyInfo.cs
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.csproj.CoreCompileInputs.cache
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.dll
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/refint/eleShoppingApp.dll
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.pdb
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.genruntimeconfig.cache
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/ref/eleShoppingApp.dll
