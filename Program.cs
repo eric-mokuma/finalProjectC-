@@ -8,13 +8,15 @@ using eleShoppingApp;
 
 namespace eleShoppingApp
 {
-    internal class Program
+    internal static class Program
     {
         // Main entry point for the application
         static void Main(string[] args)
         {
-            string continueChoice;
-            List<UserLogin> customerList = new List<UserLogin>();
+            string continueChoice = "yes";
+            string backChoice = "";
+            List<UserLogin> customerList = new();
+
             customerList.Add(new UserLogin("customer", "password"));
 
             // Display welcome banner
@@ -25,7 +27,7 @@ namespace eleShoppingApp
             // Main application loop
             do
             {
-                //This code is displaying the welcome page and ask
+                //This code is displaying the welcome or the Main Menupage and ask
                 Console.WriteLine("Please select your option:");
                 Console.WriteLine("1. Login as Customer");
                 Console.WriteLine("2. Login as Staff");
@@ -33,49 +35,25 @@ namespace eleShoppingApp
                 Console.WriteLine();
                 Console.Write("Enter your choice: ");
 
-                int choice = Convert.ToInt32(Console.ReadLine());
+                int choice;
+                if (!int.TryParse(Console.ReadLine(), out choice))
+                {
+                    Console.WriteLine("Invalid input. Please enter a number.");
+                    continue;
+                }
 
                 // Handle user menu selection
                 switch (choice)
                 {
                     // Customer Menu
                     case 1:
-
-                        // Customer submenu options
-                        Console.WriteLine("\n1. Login to your account");
-                        Console.WriteLine("2. Signup to the App");
-                        Console.Write("Please enter your choice: ");
-                        int customerChoice = Convert.ToInt32(Console.ReadLine());
-
-                        switch (customerChoice)
-                        {
-                            // Customer Login
-                            case 1:
-                                // Process customer login, here we pass the custmerList in the argument to get the existing customer account and his credential
-                                UserLogin.Login(customerList);
-                                break;
-
-                            // Customer Signup
-                            case 2:
-                                // Create new object New User which will hold the new user's account information and then add the new user to the customer list, here we call the Signup method to get the new user's account information and then we add it to the customer list, after that we call the Login method to allow the new user to log in immediately after signing up
-                                UserLogin newUser = UserLogin.Signup();
-                                customerList.Add(newUser);
-                                // Log in with the new user after signup, here we pass the customerList to the Login method to allow the new user to log in immediately after signing up
-                                UserLogin.Login(customerList);
-                                break;
-                            default:
-                            //This code displays an error message if the user enters an invalid choice in the customer
-                                Console.WriteLine("Invalid choice.");
-                                break;
-                        }
+                        ShowCustomerMenu(customerList);
                         break;
-
                     // Staff Login
                     case 2:
                         Console.WriteLine();
                         // Access staff login menu
                         UserLogin.StaffLogin();
-
                         break;
 
                     // Exit application
@@ -88,15 +66,89 @@ namespace eleShoppingApp
                         Console.WriteLine("Invalid choice");
                         break;
                 }
+                // This code is asking the user to press 'n' to go back to the main menu in case they want to go back to the main menu.
+                Console.WriteLine("Please press 'n' to go back to the main menu...");
+                backChoice = Console.ReadKey().KeyChar.ToString().ToLower();
+                if (backChoice == "n")
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Returning to the main menu...");
+                }
 
-                // Ask user if they want to continue using the app
-                Console.Write("\nDo you want to continue? (yes/no): ");
+
+                // Ask user if they want to continue using the application or exit
+                Console.WriteLine("Do you want to continue? (yes/no): ");
                 continueChoice = Convert.ToString(Console.ReadLine() ?? "string").ToLower();
 
-            } while (continueChoice == "yes");
+            }
+
+            while (continueChoice == "yes");
 
             Console.WriteLine("GoodBye! You have a good day!");
         }//End of Main
+
+
+        // This method handles all customer-related options
+        static void ShowCustomerMenu(List<UserLogin> customerList)
+        {
+            // Loop until user chooses to go back
+            while (true)
+            {
+                // Display customer menu options
+                Console.WriteLine("\nCustomer Menu:");
+                Console.WriteLine("1. Login");
+                Console.WriteLine("2. Signup");
+                Console.WriteLine("Press 'n' to go back to Main Menu");
+                Console.Write("Enter your choice: ");
+
+                // Read user input
+                string input = Convert.ToString(Console.ReadLine() ?? "string").ToLower();
+
+                // If user presses 'n', return to main menu
+                if (input == "n")
+                {
+                    Console.WriteLine("Returning to main menu...");
+                    return;
+                }
+
+                // Validate numeric input
+                int choice;
+                if (!int.TryParse(input, out choice))
+                {
+                    Console.WriteLine("Invalid input.");
+                    continue; // Restart loop
+                }
+
+                // Handle customer menu options
+                switch (choice)
+                {
+                    case 1:
+                        // Call login method
+                        UserLogin.Login(customerList);
+                        break;
+
+                    case 2:
+                        // Create new user account
+                        UserLogin newUser = UserLogin.Signup();
+
+                        // Add new user to list
+                        customerList.Add(newUser);
+
+                        Console.WriteLine("Signup successful! Please login.");
+
+                        // Automatically prompt login after signup
+                        UserLogin.Login(customerList);
+                        break;
+
+                    default:
+                        // Handle invalid choice
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
+            }
+        }
     }
+
 }
+
 

@@ -1,6 +1,29 @@
 namespace eleShoppingApp;
 
-public class Tv
+public class Tv:Product
 {
-    
+
+    // List Fiels  
+    private string screenResolution;
+    private double screenSize;
+
+    // List Properties
+    public string ScreenResolution1 { get { return screenResolution; } set { screenResolution = value; } }
+    public double ScreenSize1 { get { return screenSize; } set { screenSize = value; } }
+
+    // List Constructor
+    public Tv(int prodID,
+        string name,
+        string brand,
+        double price,
+        int stock,
+        string category,
+        string screenRes,
+        double screenSz
+    ) : base(prodID, name, brand, price, stock, category)
+    {
+        screenResolution = screenRes;
+        screenSize = screenSz;
+    }
+
 }

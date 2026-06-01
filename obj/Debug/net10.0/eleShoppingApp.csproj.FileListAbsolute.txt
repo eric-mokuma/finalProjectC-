@@ -12,3 +12,4 @@
 /Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.pdb
 /Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.genruntimeconfig.cache
 /Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/ref/eleShoppingApp.dll
+/Users/ericmokuma/Documents/eleShoppingApp_em/obj/Debug/net10.0/eleShoppingApp.sourcelink.json
