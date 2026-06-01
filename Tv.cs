@@ -26,4 +26,9 @@ public class Tv:Product
         screenSize = screenSz;
     }
 
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($" Screen Resolution: \t{ScreenResolution1} \n Screen Size: \t{ScreenSize1}");
+    }
 }

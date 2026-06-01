@@ -31,6 +31,7 @@ namespace eleShoppingApp
                 do
                 {
                     //This code is displaying the welcome or the Main Menupage and ask
+                    Console.WriteLine();
                     Console.WriteLine("Please select your option:");
                     Console.WriteLine("1. Login as Customer");
                     Console.WriteLine("2. Login as Staff");

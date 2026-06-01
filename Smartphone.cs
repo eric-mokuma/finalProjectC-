@@ -26,4 +26,10 @@ public class Smartphone:Product
         CameraMp1 = cameraMp;
         OperatingSystem1 = operatingSystem;
     }
+
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($" Camera: \t{CameraMp1} \n Operating System: \t{OperatingSystem1}");
+    }
 }

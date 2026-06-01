@@ -33,4 +33,9 @@ public class Laptop:Product
         Size = size;
     }
 
+    public override void DisplayInfo()
+    {
+        base.DisplayInfo();
+        Console.WriteLine($" RAM: \t{LaptopRAM}GB \n Storage: \t{Storage}GB \n Processor: \t{Processor} \n Size: \t{Size} inches");
+    }
 }

@@ -32,7 +32,7 @@ public class Product
     }   
 
     // Method to display product details
-    public void DisplayInfo()
+    public virtual void DisplayInfo()
     {
         Console.WriteLine($"\n Product ID: \t{ProductID} \n Product Name: \t{ProductName} \n Product Brand: \t{ProductBrand} \n Product Price: \t{ProductPrice} \n Product Inventory: \t{ProductInventory} \n Product Type: \t{ProductType} \n Number of Purchases: \t{NumberOfPurchase}");
     }

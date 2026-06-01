@@ -178,13 +178,30 @@ public class UserLogin
             switch (adminCh)
             {
                 case 1:
-                    // Code to add new product
+                    // Code to add new product by type first
                     try
                     {
                     Console.WriteLine();
-                    Console.WriteLine("-------------------Add New Product-------------------");
-                    Console.WriteLine("-----------------------------------------------------");
+                    Console.WriteLine("---------------Add New Product---------------");
+                    Console.WriteLine("---------------------------------------------");
                     Console.WriteLine();
+                    Console.WriteLine("Select product type by entering the corresponding number:");
+                    Console.WriteLine();
+                    Console.WriteLine("----------------------------------------------");
+                    Console.WriteLine("| 1. | TV                                    |");
+                    Console.WriteLine("| 2. | Smartphone                            |");
+                    Console.WriteLine("| 3. | Laptop                                |");
+                    Console.WriteLine("----------------------------------------------");
+                    Console.WriteLine();
+                    Console.Write("Enter your choice: ");
+                    string typeInput = Console.ReadLine() ?? string.Empty;
+
+                    if (!int.TryParse(typeInput, out int typeChoice))
+                    {
+                        Console.WriteLine("Invalid type selection.");
+                        break;
+                    }
+
                     Console.Write("Enter product ID: ");
                     string productIdInput = Console.ReadLine() ?? string.Empty;
                     if (!int.TryParse(productIdInput, out int productId))
@@ -212,13 +229,65 @@ public class UserLogin
                         break;
                     }
 
-                    Console.Write("Enter product type: ");
-                    string productType = Console.ReadLine() ?? string.Empty;
+                    Product newProduct;
 
-                    Product newProduct = new(productId, productName, productBrand, productPrice, productInventory, productType);
-
-                    productList.Add(newProduct);
-                    Console.WriteLine("Product added successfully!");
+                    switch (typeChoice)
+                    {
+                        case 1:
+                            Console.Write("Enter screen resolution: ");
+                            string screenResolution = Console.ReadLine() ?? string.Empty;
+                            Console.Write("Enter screen size (in inches): ");
+                            if (!double.TryParse(Console.ReadLine(), out double screenSize))
+                            {
+                                Console.WriteLine("Invalid screen size.");
+                                break;
+                            }
+                            newProduct = new Tv(productId, productName, productBrand, productPrice, productInventory, "TV", screenResolution, screenSize);
+                            productList.Add(newProduct);
+                            Console.WriteLine("TV product added successfully!");
+                            break;
+                        case 2:
+                            Console.Write("Enter camera details: ");
+                            string cameraMp = Console.ReadLine() ?? string.Empty;
+                            Console.Write("Enter operating system version: ");
+                            if (!double.TryParse(Console.ReadLine(), out double operatingSystem))
+                            {
+                                Console.WriteLine("Invalid operating system version.");
+                                break;
+                            }
+                            newProduct = new Smartphone(productId, productName, productBrand, productPrice, productInventory, "Smartphone", cameraMp, operatingSystem);
+                            productList.Add(newProduct);
+                            Console.WriteLine("Smartphone product added successfully!");
+                            break;
+                        case 3:
+                            Console.Write("Enter RAM (GB): ");
+                            if (!int.TryParse(Console.ReadLine(), out int laptopRam))
+                            {
+                                Console.WriteLine("Invalid RAM value.");
+                                break;
+                            }
+                            Console.Write("Enter storage (GB): ");
+                            if (!int.TryParse(Console.ReadLine(), out int storage))
+                            {
+                                Console.WriteLine("Invalid storage value.");
+                                break;
+                            }
+                            Console.Write("Enter processor model: ");
+                            string processor = Console.ReadLine() ?? string.Empty;
+                            Console.Write("Enter laptop display size (in inches): ");
+                            if (!double.TryParse(Console.ReadLine(), out double size))
+                            {
+                                Console.WriteLine("Invalid laptop size.");
+                                break;
+                            }
+                            newProduct = new Laptop(productId, productName, productBrand, productPrice, productInventory, "Laptop", laptopRam, storage, processor, size);
+                            productList.Add(newProduct);
+                            Console.WriteLine("Laptop product added successfully!");
+                            break;
+                        default:
+                            Console.WriteLine("Invalid type selection.");
+                            break;
+                    }
                         break;
                     }
                     catch (Exception ex)                    {
@@ -266,9 +335,7 @@ public class UserLogin
                     Console.WriteLine("-------------------Search Product-------------------");
                     Console.WriteLine("----------------------------------------------------");
                     Console.WriteLine();
-                    Console.Write("Please enter the product name you want to search for: ");
-                    string searchTerm = Console.ReadLine() ?? string.Empty;
-                    Product foundProduct = Product.SearchProduct(productList, searchTerm);
+                    Product foundProduct = Product.SearchProduct(productList, "string");
                     if (foundProduct != null)
                     {
                         foundProduct.DisplayInfo();
