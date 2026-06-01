@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("eleShoppingApp")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74ecfc2d23cab35ebcb102e803680e920343beb0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6baab9309d1a8df06daf5e3613f2075804596a5b")]
 [assembly: System.Reflection.AssemblyProductAttribute("eleShoppingApp")]
 [assembly: System.Reflection.AssemblyTitleAttribute("eleShoppingApp")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

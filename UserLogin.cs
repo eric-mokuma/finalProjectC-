@@ -89,27 +89,33 @@ public class UserLogin
     public static void StaffLogin()
     {
         bool isAuthenticated = false;
-
-        do
+        try
         {
-            Console.WriteLine("-------------------Staff Login------------------");
-            Console.WriteLine("------------------------------------------------");
-            Console.Write("Enter Staff Username: ");
-            string staffUser = Convert.ToString(Console.ReadLine() ?? "string");
-
-            Console.Write("Enter Staff Password: ");
-            string staffPass = Convert.ToString(Console.ReadLine() ?? "string");
-
-            if (staffUser == "admin" && staffPass == "admin")
+            do
             {
-                StaffMenu();
-                isAuthenticated = true;
-            }
-            else
-            {
-                Console.WriteLine("Invalid login, please try again.");
-            }
-        } while (!isAuthenticated);
+                Console.WriteLine("-------------------Staff Login------------------");
+                Console.WriteLine("------------------------------------------------");
+                Console.Write("Enter Staff Username: ");
+                string staffUser = Convert.ToString(Console.ReadLine() ?? "string");
+
+                Console.Write("Enter Staff Password: ");
+                string staffPass = Convert.ToString(Console.ReadLine() ?? "string");
+
+                if (staffUser == "admin" && staffPass == "admin")
+                {
+                    StaffMenu();
+                    isAuthenticated = true;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid login, please try again.");
+                }
+            } while (!isAuthenticated);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
     }
 
     // Allows new users to create an account and returns the new user object
@@ -120,20 +126,28 @@ public class UserLogin
         Console.WriteLine("----------------------------------------------------");
         Console.WriteLine();
         // Get new username from user
-        Console.Write("Please create a Username: ");
-        string newUser = Convert.ToString(Console.ReadLine() ?? "string");
-        Console.WriteLine();
-        // Get new password from user
-        Console.Write("Please create a Password: ");
-        string newPass = Convert.ToString(Console.ReadLine() ?? "string");
-        Console.WriteLine();
-        Console.WriteLine("Your account has been created successfully!");
-        return new UserLogin(newUser, newPass);
+        try
+        {
+            Console.Write("Please create a Username: ");
+            string newUser = Convert.ToString(Console.ReadLine() ?? "string");
+            Console.WriteLine();
+            // Get new password from user
+            Console.Write("Please create a Password: ");
+            string newPass = Convert.ToString(Console.ReadLine() ?? "string");
+            Console.WriteLine();
+            Console.WriteLine("Your account has been created successfully!");
+            return new UserLogin(newUser, newPass);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            return null;
+        }
     }
 
     public static void StaffMenu()
     {
-        int adminCh = 0;
+        int adminCh;
         do
         {
             // This method can be implemented in the future to handle staff-related tasks
@@ -165,6 +179,12 @@ public class UserLogin
             {
                 case 1:
                     // Code to add new product
+                    try
+                    {
+                    Console.WriteLine();
+                    Console.WriteLine("-------------------Add New Product-------------------");
+                    Console.WriteLine("-----------------------------------------------------");
+                    Console.WriteLine();
                     Console.Write("Enter product ID: ");
                     string productIdInput = Console.ReadLine() ?? string.Empty;
                     if (!int.TryParse(productIdInput, out int productId))
@@ -199,14 +219,22 @@ public class UserLogin
 
                     productList.Add(newProduct);
                     Console.WriteLine("Product added successfully!");
-                    break;
+                        break;
+                    }
+                    catch (Exception ex)                    {
+                        Console.WriteLine($"An error occurred: {ex.Message}");
+                        break;
+                    }
 
                 case 2:
                     // Code to remove product
                     Console.WriteLine();
                     Console.WriteLine("-------------------Remove Product-------------------");
                     Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine();
                     Console.Write("Enter the product name to remove: ");
+                    try
+                    {
                     string productNameToRemove = Console.ReadLine() ?? string.Empty;
                     Product prodToRemove = productList.Find(p => string.Equals(p.ProductName, productNameToRemove, StringComparison.OrdinalIgnoreCase));
 
@@ -219,7 +247,12 @@ public class UserLogin
                     {
                         Console.WriteLine("Product not found.");
                     }
-                    break;
+                        break;
+                    }
+                    catch (Exception ex)                    {
+                        Console.WriteLine($"An error occurred: {ex.Message}");
+                        break;
+                    }
                 case 3:
                     // Code to display products
                     foreach (Product product in productList)
@@ -232,6 +265,7 @@ public class UserLogin
                     Console.WriteLine();
                     Console.WriteLine("-------------------Search Product-------------------");
                     Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine();
                     Console.Write("Please enter the product name you want to search for: ");
                     string searchTerm = Console.ReadLine() ?? string.Empty;
                     Product foundProduct = Product.SearchProduct(productList, searchTerm);
