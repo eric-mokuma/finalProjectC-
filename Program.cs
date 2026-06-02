@@ -10,14 +10,15 @@ namespace eleShoppingApp
 {
     internal static class Program
     {
-        // Main entry point for the application
+        // Entry point for the console app.
+        // Uses a top-level loop to show the main menu until the user exits.
         static void Main(string[] args)
         {
             string continueChoice = "yes";
-            string backChoice = "";
-             int choice;
+            int choice;
             List<UserLogin> customerList = new();
 
+            // Seed a default customer account for testing.
             customerList.Add(new UserLogin("customer", "password"));
 
             // Display welcome banner
@@ -54,25 +55,24 @@ namespace eleShoppingApp
                         continue;
                     }
 
-                    // Handle user menu selection
+                    // Handle main menu selection
                     try
                     {
                         switch (choice)
                         {
-                            // Customer Menu
+                            // Customer menu: login, signup, or buy product.
                             case 1:
                                 ShowCustomerMenu(customerList);
                                 break;
-                            // Staff Login
+
+                            // Staff menu: requires admin credentials.
                             case 2:
                                 Console.WriteLine();
-                                // Access staff login menu
                                 UserLogin.StaffLogin();
                                 break;
 
-                            // Exit application
+                            // Exit application.
                             case 3:
-                                // Close the application
                                 Environment.Exit(0);
                                 return;
 
@@ -81,14 +81,9 @@ namespace eleShoppingApp
                                 break;
                         }
 
-                        // This code is asking the user to press 'n' to go back to the main menu in case they want to go back to the main menu.
-                        Console.WriteLine("Please press 'n' to go back to the main menu...");
-                        backChoice = Console.ReadKey().KeyChar.ToString().ToLower();
-                        if (backChoice == "n")
-                        {
-                            Console.WriteLine();
-                            Console.WriteLine("Returning to the main menu...");
-                        }
+                        // Wait for the user to continue before asking if they want to stay in the app
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadKey(true);
                     } catch (Exception ex)
                     {
                         Console.WriteLine($"An error occurred: {ex.Message}");
@@ -112,17 +107,19 @@ namespace eleShoppingApp
         }//End of Main
 
 
-        // This method handles all customer-related options
+        // ShowCustomerMenu handles the customer-facing task menu.
+        // It allows login, signup, and product purchase entry.
         static void ShowCustomerMenu(List<UserLogin> customerList)
         {
-            // Loop until user chooses to go back
+            // Loop until user chooses to return to the main menu.
             while (true)
             {
                 int choice;
-                // Display customer menu options
+                // Display customer menu options.
                 Console.WriteLine("\nCustomer Menu:");
                 Console.WriteLine("1. Login");
                 Console.WriteLine("2. Signup");
+                Console.WriteLine("3. Buy Product");
                 Console.WriteLine("Press 'n' to go back to Main Menu");
                 Console.Write("Enter your choice: ");
 
@@ -130,7 +127,7 @@ namespace eleShoppingApp
                 string input = Convert.ToString(Console.ReadLine() ?? "string").ToLower();
                 try
                 {
-                    // If user presses 'n', return to main menu
+                    // If user presses 'n', return to the main menu
                     if (input == "n")
                     {
                         Console.WriteLine("Returning to main menu...");
@@ -162,15 +159,28 @@ namespace eleShoppingApp
 
                         case 2:
                             // Create new user account
-                            UserLogin newUser = UserLogin.Signup();
+                            UserLogin? newUser = UserLogin.Signup();
 
-                            // Add new user to list
-                            customerList.Add(newUser);
-
-                            Console.WriteLine("Signup successful! Please login.");
-
-                            // Automatically prompt login after signup
-                            UserLogin.Login(customerList);
+                            // Add new user to list if signup succeeded
+                            if (newUser != null)
+                            {
+                                customerList.Add(newUser);
+                                Console.WriteLine("Signup successful! Please login.");
+                                if (UserLogin.Login(customerList))
+                                {
+                                    ShowCustomerPurchaseMenu();
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("Signup failed. Please try again.");
+                            }
+                            break;
+                        case 3:
+                            if (UserLogin.Login(customerList))
+                            {
+                                ShowCustomerPurchaseMenu();
+                            }
                             break;
 
                         default:
@@ -183,6 +193,57 @@ namespace eleShoppingApp
                 {
                     Console.WriteLine($"An error occurred: {ex.Message}");
                 }
+            }
+        }
+
+        // Displays inventory and handles the customer purchase flow.
+        static void ShowCustomerPurchaseMenu()
+        {
+            if (UserLogin.Products.Count == 0)
+            {
+                Console.WriteLine("No products are available for purchase at this time.");
+                return;
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Available Products:");
+            foreach (Product product in UserLogin.Products)
+            {
+                product.DisplayInfo();
+            }
+
+            Console.Write("Enter the product name you want to buy, or press 'n' to return: ");
+            string searchTerm = Convert.ToString(Console.ReadLine() ?? string.Empty);
+            if (searchTerm.Trim().ToLower() == "n")
+            {
+                return;
+            }
+
+            Product? productToBuy = Product.SearchProduct(UserLogin.Products, searchTerm);
+            if (productToBuy == null)
+            {
+                Console.WriteLine("Product not found.");
+                return;
+            }
+
+            Console.Write("Enter quantity to buy: ");
+            if (!int.TryParse(Console.ReadLine(), out int purchaseQuantity) || purchaseQuantity <= 0)
+            {
+                Console.WriteLine("Invalid quantity.");
+                return;
+            }
+
+            if (productToBuy.Purchase(purchaseQuantity))
+            {
+                Console.WriteLine($"You have purchased {purchaseQuantity} x {productToBuy.ProductName} for {productToBuy.ProductPrice * purchaseQuantity:C}.");
+                if (productToBuy.ProductQuantity == 0)
+                {
+                    Console.WriteLine("This product is now out of stock.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Purchase failed. Not enough stock.");
             }
         }
     }

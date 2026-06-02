@@ -3,8 +3,11 @@ namespace eleShoppingApp;
 
 public class UserLogin
 {
+    // Shared inventory list for all products managed by staff.
     static readonly List<Product> productList = new List<Product>();
-    // Private fields to store user credentials
+    public static List<Product> Products => productList;
+
+    // Private fields to store user credentials.
     private string username = "";
     private string password = "";
 
@@ -49,8 +52,9 @@ public class UserLogin
         Password = password;
     }
 
-    // Authenticates user by comparing entered credentials against saved users
-    public static void Login(List<UserLogin> users)
+    // Authenticates a customer by username and password.
+    // Returns true once the user is successfully authenticated.
+    public static bool Login(List<UserLogin> users)
     {
         bool isAuthenticated = false;
 
@@ -61,10 +65,10 @@ public class UserLogin
             Console.WriteLine("====================================");
             Console.WriteLine();
             Console.Write("Enter your Username: ");
-            string user = Convert.ToString(Console.ReadLine() ?? "string");
+            string user = Convert.ToString(Console.ReadLine() ?? string.Empty);
 
             Console.Write("Enter your Password: ");
-            string pass = Convert.ToString(Console.ReadLine() ?? "string");
+            string pass = Convert.ToString(Console.ReadLine() ?? string.Empty);
 
             foreach (UserLogin existingUser in users)
             {
@@ -83,9 +87,12 @@ public class UserLogin
                 Console.WriteLine("Invalid login, please try again.");
             }
         } while (!isAuthenticated);
+
+        return true;
     }
 
-    // Authenticates staff members with hardcoded admin credentials and allows retry
+    // Authenticates staff members using hardcoded admin credentials.
+    // On success it enters the staff inventory menu.
     public static void StaffLogin()
     {
         bool isAuthenticated = false;
@@ -118,8 +125,9 @@ public class UserLogin
         }
     }
 
-    // Allows new users to create an account and returns the new user object
-    public static UserLogin Signup()
+    // Allows new users to create an account and returns the new user object.
+    // Returns null if account creation fails.
+    public static UserLogin? Signup()
     {
         Console.WriteLine();
         Console.WriteLine("-----------------Create an Account------------------");
@@ -148,9 +156,11 @@ public class UserLogin
     public static void StaffMenu()
     {
         int adminCh;
+        
         do
         {
-            // This method can be implemented in the future to handle staff-related tasks
+            // Inventory menu loop for staff.
+            // Allows staff to add, remove, display, or search products.
             Console.WriteLine();
             Console.WriteLine("-----------Admin stock for Inventory Menu-----------");
             Console.WriteLine("----------------------------------------------------");
@@ -166,7 +176,7 @@ public class UserLogin
             if (input.Trim().ToLower() == "n")
             {
                 Console.WriteLine("Returning to the main menu...");
-                break;
+                return;
             }
 
             if (!int.TryParse(input, out adminCh))
@@ -178,7 +188,8 @@ public class UserLogin
             switch (adminCh)
             {
                 case 1:
-                    // Code to add new product by type first
+                    // Add or restock a product.
+                    // If the product already exists, update only the quantity.
                     try
                     {
                     Console.WriteLine();
@@ -242,9 +253,18 @@ public class UserLogin
                                 Console.WriteLine("Invalid screen size.");
                                 break;
                             }
-                            newProduct = new Tv(productId, productName, productBrand, productPrice, productInventory, "TV", screenResolution, screenSize);
-                            productList.Add(newProduct);
-                            Console.WriteLine("TV product added successfully!");
+                            Product? existingTv = productList.Find(p => string.Equals(p.ProductName, productName, StringComparison.OrdinalIgnoreCase) && string.Equals(p.ProductType, "TV", StringComparison.OrdinalIgnoreCase));
+                            if (existingTv != null)
+                            {
+                                existingTv.ChangeQuantity(productInventory);
+                                Console.WriteLine($"TV product already exists. Updated quantity to {existingTv.ProductQuantity}.");
+                            }
+                            else
+                            {
+                                newProduct = new Tv(productId, productName, productBrand, productPrice, productInventory, "TV", screenResolution, screenSize);
+                                productList.Add(newProduct);
+                                Console.WriteLine("TV product added successfully!");
+                            }
                             break;
                         case 2:
                             Console.Write("Enter camera details: ");
@@ -255,9 +275,18 @@ public class UserLogin
                                 Console.WriteLine("Invalid operating system version.");
                                 break;
                             }
-                            newProduct = new Smartphone(productId, productName, productBrand, productPrice, productInventory, "Smartphone", cameraMp, operatingSystem);
-                            productList.Add(newProduct);
-                            Console.WriteLine("Smartphone product added successfully!");
+                            Product? existingPhone = productList.Find(p => string.Equals(p.ProductName, productName, StringComparison.OrdinalIgnoreCase) && string.Equals(p.ProductType, "Smartphone", StringComparison.OrdinalIgnoreCase));
+                            if (existingPhone != null)
+                            {
+                                existingPhone.ChangeQuantity(productInventory);
+                                Console.WriteLine($"Smartphone product already exists. Updated quantity to {existingPhone.ProductQuantity}.");
+                            }
+                            else
+                            {
+                                newProduct = new Smartphone(productId, productName, productBrand, productPrice, productInventory, "Smartphone", cameraMp, operatingSystem);
+                                productList.Add(newProduct);
+                                Console.WriteLine("Smartphone product added successfully!");
+                            }
                             break;
                         case 3:
                             Console.Write("Enter RAM (GB): ");
@@ -280,9 +309,18 @@ public class UserLogin
                                 Console.WriteLine("Invalid laptop size.");
                                 break;
                             }
-                            newProduct = new Laptop(productId, productName, productBrand, productPrice, productInventory, "Laptop", laptopRam, storage, processor, size);
-                            productList.Add(newProduct);
-                            Console.WriteLine("Laptop product added successfully!");
+                            Product? existingLaptop = productList.Find(p => string.Equals(p.ProductName, productName, StringComparison.OrdinalIgnoreCase) && string.Equals(p.ProductType, "Laptop", StringComparison.OrdinalIgnoreCase));
+                            if (existingLaptop != null)
+                            {
+                                existingLaptop.ChangeQuantity(productInventory);
+                                Console.WriteLine($"Laptop product already exists. Updated quantity to {existingLaptop.ProductQuantity}.");
+                            }
+                            else
+                            {
+                                newProduct = new Laptop(productId, productName, productBrand, productPrice, productInventory, "Laptop", laptopRam, storage, processor, size);
+                                productList.Add(newProduct);
+                                Console.WriteLine("Laptop product added successfully!");
+                            }
                             break;
                         default:
                             Console.WriteLine("Invalid type selection.");
@@ -296,7 +334,8 @@ public class UserLogin
                     }
 
                 case 2:
-                    // Code to remove product
+                    // Remove inventory quantity from an existing product.
+                    // If quantity reaches zero, the product is removed entirely.
                     Console.WriteLine();
                     Console.WriteLine("-------------------Remove Product-------------------");
                     Console.WriteLine("----------------------------------------------------");
@@ -305,12 +344,33 @@ public class UserLogin
                     try
                     {
                     string productNameToRemove = Console.ReadLine() ?? string.Empty;
-                    Product prodToRemove = productList.Find(p => string.Equals(p.ProductName, productNameToRemove, StringComparison.OrdinalIgnoreCase));
+                    Product? prodToRemove = productList.Find(p => string.Equals(p.ProductName, productNameToRemove, StringComparison.OrdinalIgnoreCase));
 
                     if (!string.IsNullOrWhiteSpace(productNameToRemove) && prodToRemove != null)
                     {
-                        Console.WriteLine($"{productNameToRemove} found in the list and {productNameToRemove} has been removed");
-                        productList.Remove(prodToRemove);
+                        Console.Write("Enter quantity to remove: ");
+                        if (!int.TryParse(Console.ReadLine(), out int removeQuantity) || removeQuantity <= 0)
+                        {
+                            Console.WriteLine("Invalid quantity.");
+                            break;
+                        }
+
+                        if (prodToRemove.ChangeQuantity(-removeQuantity))
+                        {
+                            if (prodToRemove.ProductQuantity == 0)
+                            {
+                                productList.Remove(prodToRemove);
+                                Console.WriteLine($"{productNameToRemove} removed from inventory.");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Removed {removeQuantity} from {productNameToRemove}. Remaining quantity: {prodToRemove.ProductQuantity}.");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Not enough quantity to remove.");
+                        }
                     }
                     else
                     {
@@ -323,19 +383,19 @@ public class UserLogin
                         break;
                     }
                 case 3:
-                    // Code to display products
+                    // Display all products currently in inventory.
                     foreach (Product product in productList)
                     {
                         product.DisplayInfo();
                     }
                     break;
                 case 4:
-                    // Code to search product
+                    // Search for a product by name in the current inventory.
                     Console.WriteLine();
                     Console.WriteLine("-------------------Search Product-------------------");
                     Console.WriteLine("----------------------------------------------------");
                     Console.WriteLine();
-                    Product foundProduct = Product.SearchProduct(productList, "string");
+                    Product? foundProduct = Product.SearchProduct(productList, "string");
                     if (foundProduct != null)
                     {
                         foundProduct.DisplayInfo();

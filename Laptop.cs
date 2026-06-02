@@ -5,7 +5,7 @@ public class Laptop:Product
     // List Fiels
     private int laptopRam;
     private int storage;
-    private string processor;
+    private string processor = string.Empty;
     private double size;
 
     // List Properties

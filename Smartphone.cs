@@ -3,8 +3,7 @@ namespace eleShoppingApp;
 public class Smartphone:Product
 {
         // List Fiels  
-    private string cameraMp
-;
+    private string cameraMp = string.Empty;
     private double operatingSystem;
 
     // List Properties
