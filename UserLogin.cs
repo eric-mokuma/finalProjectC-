@@ -53,10 +53,10 @@ public class UserLogin
     public static UserLogin? Signup()
     {
         Console.WriteLine();
-        Console.WriteLine("|          Create Account          |");
-        Console.WriteLine("====================================");
-        Console.WriteLine("| n. | To go back to previous menu           |");
-        Console.WriteLine("====================================");
+        Console.WriteLine("|          Create Customer Account         |");
+        Console.WriteLine("--------------------------------------------");
+        Console.WriteLine("| n. | To go back to previous menu         |");
+        Console.WriteLine("--------------------------------------------");
         Console.WriteLine();
         Console.Write("Please create a Username (or n to go back): ");
         string newUser = Console.ReadLine() ?? string.Empty;

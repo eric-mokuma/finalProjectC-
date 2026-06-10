@@ -10,12 +10,12 @@ public class StaffMenu
         do
         {
             Console.WriteLine();
-            Console.WriteLine("------------------Staff Login-----------------");
-            Console.WriteLine("----------------------------------------------");
-            Console.WriteLine("| n. | To go back to previous menu           |");
-            Console.WriteLine("----------------------------------------------");
+            Console.WriteLine("|               Staff Login                |");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("| n. | To go back to previous menu         |");
+            Console.WriteLine("--------------------------------------------");
             Console.WriteLine();
-            Console.Write("Enter Staff Username (or n to go back): ");
+            Console.Write("Enter Staff Username: ");
             string staffUser = Console.ReadLine() ?? string.Empty;
             if (staffUser.Trim().ToLower() == "n")
             {
@@ -47,14 +47,14 @@ public class StaffMenu
         do
         {
             Console.WriteLine();
-            Console.WriteLine("-----------Admin stock for Inventory Menu-----------");
-            Console.WriteLine("----------------------------------------------------");
-            Console.WriteLine("| 1. | Add New product                             |");
-            Console.WriteLine("| 2. | Remove product                              |");
-            Console.WriteLine("| 3. | Display Products                            |");
-            Console.WriteLine("| 4. | Search Product                              |");
-            Console.WriteLine("| n. | To go back to previous menu                 |");
-            Console.WriteLine("|____|_____________________________________________|");
+            Console.WriteLine("|       Admin Stock for Inventory Menu     |");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("| 1. | Add New product                     |");
+            Console.WriteLine("| 2. | Remove product                      |");
+            Console.WriteLine("| 3. | Display Products                    |");
+            Console.WriteLine("| 4. | Search Product                      |");
+            Console.WriteLine("| n. | To go back to previous menu         |");
+            Console.WriteLine("|____|_____________________________________|");
             Console.WriteLine();
             
             Console.Write("Your choice: ");
@@ -80,20 +80,16 @@ public class StaffMenu
                     try
                     {
                         Console.WriteLine();
-                        Console.WriteLine("---------------Add New Product---------------");
-                        Console.WriteLine("---------------------------------------------");
-                        Console.WriteLine();
-                        Console.WriteLine("Select product type by entering the corresponding number:");
-                        Console.WriteLine();
-                        Console.WriteLine("----------------------------------------------");
-                        Console.WriteLine("| 1. | TV                                    |");
-                        Console.WriteLine("| 2. | Smartphone                            |");
-                        Console.WriteLine("| 3. | Laptop                                |");
-                        Console.WriteLine("| 4. | Tablet                                |");
-                        Console.WriteLine("| 5. | Headphones                            |");
-                        Console.WriteLine("| 6. | Smartwatch                            |");
-                        Console.WriteLine("| n. | To go back to previous menu           |");
-                        Console.WriteLine("|____|_______________________________________|");
+                        Console.WriteLine("|            Add New Product.              |");
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("| 1. | TV                                  |");
+                        Console.WriteLine("| 2. | Smartphone                          |");
+                        Console.WriteLine("| 3. | Laptop                              |");
+                        Console.WriteLine("| 4. | Tablet                              |");
+                        Console.WriteLine("| 5. | Headphones                          |");
+                        Console.WriteLine("| 6. | Smartwatch                          |");
+                        Console.WriteLine("| n. | To go back to previous menu         |");
+                        Console.WriteLine("|____|_____________________________________|");
                         Console.WriteLine();
                         Console.Write("Enter your choice: ");
                         string typeInput = Console.ReadLine() ?? string.Empty;
@@ -311,8 +307,8 @@ public class StaffMenu
                     // Remove inventory quantity from an existing product.
                     // If quantity reaches zero, the product is removed entirely.
                     Console.WriteLine();
-                    Console.WriteLine("-------------------Remove Product-------------------");
-                    Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine("|             Remove Product               |");
+                    Console.WriteLine("--------------------------------------------");
                     Console.WriteLine();
                     Console.Write("Enter the product name to remove: ");
                     try
@@ -367,10 +363,12 @@ public class StaffMenu
                 case 4:
                     // Search for a product by name in the current inventory.
                     Console.WriteLine();
-                    Console.WriteLine("-------------------Search Product-------------------");
-                    Console.WriteLine("----------------------------------------------------");
+                    Console.WriteLine("|             Search Product               |");
+                    Console.WriteLine("|------------------------------------------|");
                     Console.WriteLine();
-                    Product? foundProduct = Product.SearchProduct(productList, "string");
+                    Console.Write("Enter the product name to search: ");
+                    string searchName = Console.ReadLine() ?? string.Empty;
+                    Product? foundProduct = Product.SearchProduct(productList, searchName);
                     if (foundProduct != null)
                     {
                         foundProduct.DisplayInfo();

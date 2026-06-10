@@ -24,20 +24,19 @@ namespace eleShoppingApp
 
 
             // Display welcome banner
-            Console.WriteLine("===================================");
-            Console.WriteLine(" Welcome to Electronic Shopping App ");
-            Console.WriteLine("===================================");
+            Console.WriteLine("============================================");
+            Console.WriteLine("|     Welcome to Electronic Shopping App   |");
+            Console.WriteLine("============================================");
             Console.WriteLine();
             // Main application loop
             do
             {
                 //This code is displaying the welcome page and ask
-                Console.WriteLine("Please select your option:");
-                Console.WriteLine("---------------------------------");
-                Console.WriteLine("| 1. | Please Login as Customer |");
-                Console.WriteLine("| 2. | Please Login as Staff    |");
-                Console.WriteLine("| 3. | Exit                     |");
-                Console.WriteLine("---------------------------------");
+                Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("|  1. | Please Login as Customer           |");
+                Console.WriteLine("|  2. | Please Login as Staff              |");
+                Console.WriteLine("| 99. | Exit                               |");
+                Console.WriteLine("--------------------------------------------");
                 Console.WriteLine();
                 Console.Write("Enter your choice: ");
                 int choice;
@@ -55,11 +54,12 @@ namespace eleShoppingApp
                     case 1:
 
                         // Customer submenu options
-                        Console.WriteLine("------------------------------------");
-                        Console.WriteLine("| 1. | Login to your account       |");
-                        Console.WriteLine("| 2. | Signup to the App           |");
-                        Console.WriteLine("| n. | To go back to previous menu |");
-                        Console.WriteLine("------------------------------------");
+                        Console.WriteLine("|          Please select your option.      |");
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("| 1. | Login to your account               |");
+                        Console.WriteLine("| 2. | Signup to the App                   |");
+                        Console.WriteLine("| n. | To go back to previous menu         |");
+                        Console.WriteLine("--------------------------------------------");
                         Console.WriteLine();
                         Console.Write("Please enter your choice: ");
                         string custInput = Console.ReadLine() ?? string.Empty;
@@ -106,8 +106,6 @@ namespace eleShoppingApp
                     case 2:
                         // Access staff login menu
                         Console.WriteLine();
-                        Console.WriteLine("------------------Staff Login-----------------");
-                        Console.WriteLine("----------------------------------------------");
                         StaffMenu.StaffLogin();
 
                         break;
@@ -117,7 +115,7 @@ namespace eleShoppingApp
                     // The staff menu branch stops here and returns to the main menu loop.
                     // =============================================================
                     // Exit application
-                    case 3:
+                    case 99:
                         // Close the application
                         Environment.Exit(0);
                         return;

@@ -19,10 +19,10 @@ public class CustomerMenu
         do
         {
             Console.WriteLine();
-            Console.WriteLine("|          Customer Login          |");
-            Console.WriteLine("====================================");
-            Console.WriteLine("| n. | To go back to previous menu           |");
-            Console.WriteLine("====================================");
+            Console.WriteLine("|                Customer Login            |");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("| n. | To go back to previous menu         |");
+            Console.WriteLine("---------------------------------------------");
             Console.WriteLine();
             Console.Write("Enter your Username (or n to go back): ");
             string user = Console.ReadLine() ?? string.Empty;
@@ -64,17 +64,17 @@ public class CustomerMenu
         {
             int choice;
             do
-            {
-            Console.WriteLine("|              CUSTOMER MENU.           |");
-            Console.WriteLine("|---------------------------------------|");
-            Console.WriteLine("| 1. | View the list of the Products    |");//List the products by category, then the user can choose which category of the products they want to view.
-            Console.WriteLine("| 2. | Add the product to Cart          |");//The user can add the product to the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will add the product to the cart.
-            Console.WriteLine("| 3. | Remove the product from the Cart |");//The user can remove the product from the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will remove the product from the cart.
-            Console.WriteLine("| 4. | Search the product(s)            |");//The user can search the product by entering the keyword, then the system will search the product from the list and display the search result to the user.
-            Console.WriteLine("| 5. | Go to Cart                       |");//The user can view the items in their cart and manage them.
-            Console.WriteLine("| 6. | Exit                             |");
-            Console.WriteLine("| n. | To go back to previous menu      |");
-            Console.WriteLine("|---------------------------------------|");
+        {
+            Console.WriteLine("|                CUSTOMER MENU.            |");
+            Console.WriteLine("|------------------------------------------|");
+            Console.WriteLine("| 1. | View the list of the Products       |");//List the products by category, then the user can choose which category of the products they want to view.
+            Console.WriteLine("| 2. | Add the product to Cart             |");//The user can add the product to the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will add the product to the cart.
+            Console.WriteLine("| 3. | Remove the product from the Cart    |");//The user can remove the product from the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will remove the product from the cart.
+            Console.WriteLine("| 4. | Search the product(s)               |");//The user can search the product by entering the keyword, then the system will search the product from the list and display the search result to the user.
+            Console.WriteLine("| 5. | Go to Cart                          |");//The user can view the items in their cart and manage them.
+            Console.WriteLine("| 6. | Exit                                |");
+            Console.WriteLine("| n. | To go back to previous menu         |");
+            Console.WriteLine("|------------------------------------------|");
             Console.WriteLine();
             Console.Write("Please enter your choice: ");
             string menuInput = Console.ReadLine() ?? string.Empty;
@@ -120,17 +120,17 @@ public class CustomerMenu
         private void ViewProductsMenu()
         {
             do
-            {
-                Console.WriteLine("|          PRODUCTS CATEGORIES       |");
-                Console.WriteLine(" -------------------------------------");
-                Console.WriteLine(" |  1. | Laptop                      |");
-                Console.WriteLine(" |  2. | Headphone                   |");
-                Console.WriteLine(" |  3. | TV                          |");
-                Console.WriteLine(" |  4. | Tablet                      |");
-                Console.WriteLine(" |  5. | Smartphone                  |");
-                Console.WriteLine(" |  6. | Smartwatch                  |");
-                Console.WriteLine(" |  n. | To go back to previous menu |");
-                Console.WriteLine(" |-----------------------------------|");
+        {
+                Console.WriteLine("|             PRODUCTS CATEGORIES          |");
+                Console.WriteLine(" -------------------------------------------");
+                Console.WriteLine(" |  1. | Laptop                            |");
+                Console.WriteLine(" |  2. | Headphone                         |");
+                Console.WriteLine(" |  3. | TV                                |");
+                Console.WriteLine(" |  4. | Tablet                            |");
+                Console.WriteLine(" |  5. | Smartphone                        |");
+                Console.WriteLine(" |  6. | Smartwatch                        |");
+                Console.WriteLine(" |  n. | To go back to previous menu       |");
+                Console.WriteLine(" |-----------------------------------------|");
                 Console.Write("Please choose what type of the products would you like to view: ");
                 string categoryInput = Console.ReadLine() ?? string.Empty;
                 if (categoryInput.Trim().ToLower() == "n")
