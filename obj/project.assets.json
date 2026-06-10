@@ -8,7 +8,7 @@
     "net10.0": []
   },
   "packageFolders": {
-    "/Users/ericmokuma/.nuget/packages/": {}
+    "/var/folders/wb/mm1k76js29ggjr_l1qwrdxrc0000gn/T/cursor-sandbox-cache/0c3f012d25cd03f337e0a8222fbe1760/nuget": {}
   },
   "project": {
     "version": "1.0.0",
@@ -16,7 +16,7 @@
       "projectUniqueName": "/Users/ericmokuma/Documents/eleShoppingApp_em/eleShoppingApp.csproj",
       "projectName": "eleShoppingApp",
       "projectPath": "/Users/ericmokuma/Documents/eleShoppingApp_em/eleShoppingApp.csproj",
-      "packagesPath": "/Users/ericmokuma/.nuget/packages/",
+      "packagesPath": "/var/folders/wb/mm1k76js29ggjr_l1qwrdxrc0000gn/T/cursor-sandbox-cache/0c3f012d25cd03f337e0a8222fbe1760/nuget",
       "outputPath": "/Users/ericmokuma/Documents/eleShoppingApp_em/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [

@@ -1,9 +1,8 @@
 namespace eleShoppingApp;
 
-public class Tv:Product
+public class TV:Product
 {
-
-    // List Fiels  
+    // List Fields 
     private string screenResolution;
     private double screenSize;
 
@@ -12,7 +11,8 @@ public class Tv:Product
     public double ScreenSize1 { get { return screenSize; } set { screenSize = value; } }
 
     // List Constructor
-    public Tv(int prodID,
+    // List Constructor
+    public TV(int prodID,
         string name,
         string brand,
         double price,
@@ -26,9 +26,11 @@ public class Tv:Product
         screenSize = screenSz;
     }
 
+    //Display TV information
     public override void DisplayInfo()
     {
         base.DisplayInfo();
-        Console.WriteLine($" Screen Resolution: \t{ScreenResolution1} \n Screen Size: \t{ScreenSize1}");
+        Console.WriteLine($" Screen Resolution: \t{ScreenResolution1} \n Screen Size: \t{ScreenSize1} inches");
     }
+
 }
