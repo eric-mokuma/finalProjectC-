@@ -5,11 +5,14 @@ public class Cart
         //Properties and create a list to hold products in the cart
         public List<Product> CartItems { get; set; }
         public double TotalPrice { get; set; }
+        private List<Product> availableProducts;
+
         //Constructor
-        public Cart()
+        public Cart(List<Product> products)
         {
             CartItems = [];
             TotalPrice = 0;
+            availableProducts = products;
         }
         //Method: Add product to cart
         public void AddProduct(Product product)
@@ -43,7 +46,7 @@ public class Cart
         //Method: Display cart items and total price
         public void DisplayCart()
         {
-            Console.WriteLine("\n======SHOPPING CART======");
+            Console.WriteLine("------------SHOPPING CART------------");
             if(CartItems.Count == 0)
             {
                 Console.WriteLine("Your cart is empty.");
@@ -63,7 +66,7 @@ public class Cart
                 Console.WriteLine("Your cart is empty. Add items before checkout.");
                 return;
             }
-            Console.WriteLine("\n=====Checking out=====");
+            Console.WriteLine("------------Checking out------------");
             DisplayCart();
             
             Console.WriteLine("Thank you for your purchase!");
@@ -71,15 +74,56 @@ public class Cart
             TotalPrice = 0;
         }
 
-        internal void AddProduct()
+        public void AddProduct()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Console.Write("Enter the product ID to add to cart: ");
+                if (!int.TryParse(Console.ReadLine(), out int productId))
+                {
+                    Console.WriteLine("Invalid product ID.");
+                    return;
+                }
+
+                Product? product = availableProducts.FirstOrDefault(p => p.ProductID == productId);
+                if (product == null)
+                {
+                    Console.WriteLine("Product not found.");
+                    return;
+                }
+
+                AddProduct(product);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
 
-        internal void RemoveProduct()
+        public void RemoveProduct()
         {
-            throw new NotImplementedException();
+            try
+            {
+                Console.Write("Enter the product ID to remove from cart: ");
+                if (!int.TryParse(Console.ReadLine(), out int productId))
+                {
+                    Console.WriteLine("Invalid product ID.");
+                    return;
+                }
+
+                Product? product = CartItems.FirstOrDefault(p => p.ProductID == productId);
+                if (product == null)
+                {
+                    Console.WriteLine("Product not found in cart.");
+                    return;
+                }
+
+                RemoveProduct(product);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
         }
     }//End of Cart class
-
 

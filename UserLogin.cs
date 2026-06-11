@@ -52,24 +52,33 @@ public class UserLogin
     // Allows new users to create an account and returns the new user object
     public static UserLogin? Signup()
     {
-        Console.WriteLine();
-        Console.WriteLine("|          Create Customer Account         |");
-        Console.WriteLine("--------------------------------------------");
-        Console.WriteLine("| n. | To go back to previous menu         |");
-        Console.WriteLine("--------------------------------------------");
-        Console.WriteLine();
-        Console.Write("Please create a Username (or n to go back): ");
-        string newUser = Console.ReadLine() ?? string.Empty;
-        if (newUser.Trim().ToLower() == "n")
+        try
         {
-            Console.WriteLine("Returning to the previous menu...");
+            Console.WriteLine();
+            Console.WriteLine("|          Create Customer Account         |");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine("| n. | To go back to previous menu         |");
+            Console.WriteLine("--------------------------------------------");
+            Console.WriteLine();
+            Console.Write("Please create a Username: ");
+            string newUser = Console.ReadLine() ?? string.Empty;
+            if (newUser.Trim().ToLower() == "n")
+            {
+                Console.WriteLine("Returning to the previous menu...");
+                return null;
+            }
+
+            Console.Write("Please create a Password: ");
+            string newPass = Console.ReadLine() ?? string.Empty;
+            Console.WriteLine();
+            Console.WriteLine("Signup successful!");
+            Console.WriteLine($"Please Login but using the credentials you just created.");
+            return new UserLogin(newUser, newPass);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
             return null;
         }
-
-        Console.Write("Please create a Password: ");
-        string newPass = Console.ReadLine() ?? string.Empty;
-        Console.WriteLine();
-        Console.WriteLine("Signup successful!");
-        return new UserLogin(newUser, newPass);
     }
 }

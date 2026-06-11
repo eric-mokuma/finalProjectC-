@@ -26,6 +26,9 @@ public class TV:Product
         screenSize = screenSz;
     }
 
+    public override string ProductDescription =>
+        $"Screen Resolution: {ScreenResolution1}, Screen Size: {ScreenSize1} inches";
+
     //Display TV information
     public override void DisplayInfo()
     {

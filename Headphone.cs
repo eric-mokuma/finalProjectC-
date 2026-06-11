@@ -18,6 +18,9 @@ public class Headphone : Product
         IsNoiseCancelling = isNoiseCancelling;
     }
    
+    public override string ProductDescription =>
+        $"Wireless: {IsWireless}, Noise Cancelling: {IsNoiseCancelling}";
+
     //Method: Display headphone information
     public override void DisplayInfo()
     {

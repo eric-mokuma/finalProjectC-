@@ -37,10 +37,13 @@ public class Product
         ProductType = prodType;
     }
 
+    // Returns type-specific details; overridden in child product classes.
+    public virtual string ProductDescription => string.Empty;
+
     //Writes all visible product details to the console.
     public virtual void DisplayInfo()
     {
-        Console.WriteLine($"\n Product ID: \t{ProductID} \n Product Name: \t{ProductName} \n Product Brand: \t{ProductBrand} \n Product Price: \t{ProductPrice} \n Product Quantity: \t{ProductQuantity} \n Product Type: \t{ProductType} \n Number of Purchases: \t{NumberOfPurchase}");
+        Console.WriteLine($"\n Product ID: \t{ProductID} \n Product Name: \t{ProductName} \n Product Brand: \t{ProductBrand} \n Product Price: \t{ProductPrice} \n Product Quantity: \t{ProductQuantity}  \n Number of Purchases: \t{NumberOfPurchase}");
     }
 
    
@@ -89,24 +92,32 @@ public class Product
     //If searchTerm is null or empty, prompts the user for a value.
     public static Product? SearchProduct(List<Product> products, string? searchTerm = null)
     {
-        if (string.IsNullOrWhiteSpace(searchTerm))
+        try
         {
-            Console.Write("Please enter the product name you want to search for: ");
-            searchTerm = Convert.ToString(Console.ReadLine() ?? string.Empty);
-        }
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                Console.Write("Please enter the product name you want to search for: ");
+                searchTerm = Convert.ToString(Console.ReadLine() ?? string.Empty);
+            }
 
-        if (string.IsNullOrWhiteSpace(searchTerm))
-        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+            {
+                return null;
+            }
+
+            foreach (Product product in products)
+            {
+                if (product.ProductName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    return product;
+                }
+            }
             return null;
         }
-
-        foreach (Product product in products)
+        catch (Exception ex)
         {
-            if (product.ProductName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
-            {
-                return product;
-            }
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            return null;
         }
-        return null;
     }
 }

@@ -17,7 +17,7 @@ namespace eleShoppingApp
             
         static void Main(string[] args)
         {
-            string continueChoice;
+            string continueChoice = "yes";
             List<UserLogin> customerList = new List<UserLogin>();
             customerList.Add(new UserLogin("customer", "password"));
            
@@ -31,6 +31,8 @@ namespace eleShoppingApp
             // Main application loop
             do
             {
+                try
+                {
                 //This code is displaying the welcome page and ask
                 Console.WriteLine("--------------------------------------------");
                 Console.WriteLine("|  1. | Please Login as Customer           |");
@@ -54,6 +56,9 @@ namespace eleShoppingApp
                     case 1:
 
                         // Customer submenu options
+                        Console.WriteLine("Welcome to Customer Login!");
+                        Console.WriteLine("Please select option 2 to Create an account if you don't have one yet.");
+                        Console.WriteLine();
                         Console.WriteLine("|          Please select your option.      |");
                         Console.WriteLine("--------------------------------------------");
                         Console.WriteLine("| 1. | Login to your account               |");
@@ -106,17 +111,21 @@ namespace eleShoppingApp
                     case 2:
                         // Access staff login menu
                         Console.WriteLine();
+                        Console.WriteLine("|            Welcome to Staff Login!       |");
+                        Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Please enter your credentials to access the \nAdmin Stock for Inventory Menu.");
                         StaffMenu.StaffLogin();
 
                         break;
 
-                    // =============================================================
-                    // >>>>>>>>>>>>>>>>>>>>>>>>> END OF STAFF LOGIN SECTION <<<<<<<<<<<<<<<<<<<<<<
-                    // The staff menu branch stops here and returns to the main menu loop.
-                    // =============================================================
-                    // Exit application
-                    case 99:
+                        // =============================================================
+                        // >>>>>>>>>>>>>>>>>>>>>>>>> END OF STAFF LOGIN SECTION <<<<<<<<<<<<<<<<<<<<<<
+                        // The staff menu branch stops here and returns to the main menu loop.
+                        // =============================================================
+                        // Exit application
+                        case 99:
                         // Close the application
+                        Console.WriteLine("GoodBye! You have a good day!");
                         Environment.Exit(0);
                         return;
 
@@ -133,6 +142,12 @@ namespace eleShoppingApp
                 {
                     Console.WriteLine("GoodBye! You have a good day!");
                     Environment.Exit(0);
+                }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"An error occurred: {ex.Message}");
+                    continueChoice = "yes";
                 }
 
             } while (continueChoice == "yes");

@@ -18,6 +18,9 @@ public class Tablet : Product
         BatteryLife = batteryLife;
     }
         
+    public override string ProductDescription =>
+        $"Screen Size: {ScreenSize} inches, Battery Life: {BatteryLife} hours";
+
     //Method: Display tablet information
     public override void DisplayInfo()
     {

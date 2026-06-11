@@ -26,6 +26,9 @@ public class Smartphone:Product
         OperatingSystem1 = operatingSystem;
     }
 
+    public override string ProductDescription =>
+        $"Camera: {CameraMp1}, Operating System: {OperatingSystem1}";
+
     public override void DisplayInfo()
     {
         base.DisplayInfo();

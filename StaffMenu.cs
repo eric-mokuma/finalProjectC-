@@ -9,8 +9,9 @@ public class StaffMenu
 
         do
         {
+            try
+            {
             Console.WriteLine();
-            Console.WriteLine("|               Staff Login                |");
             Console.WriteLine("--------------------------------------------");
             Console.WriteLine("| n. | To go back to previous menu         |");
             Console.WriteLine("--------------------------------------------");
@@ -28,12 +29,20 @@ public class StaffMenu
 
             if (staffUser == "admin" && staffPass == "admin")
             {
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("Welcome to Admin Stock for Inventory Menu!");
                 ShowMenu();
                 isAuthenticated = true;
             }
             else
             {
                 Console.WriteLine("Invalid login, please try again.");
+            }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         } while (!isAuthenticated);
     }
@@ -46,6 +55,8 @@ public class StaffMenu
 
         do
         {
+            try
+            {
             Console.WriteLine();
             Console.WriteLine("|       Admin Stock for Inventory Menu     |");
             Console.WriteLine("--------------------------------------------");
@@ -56,21 +67,35 @@ public class StaffMenu
             Console.WriteLine("| n. | To go back to previous menu         |");
             Console.WriteLine("|____|_____________________________________|");
             Console.WriteLine();
-            
+
             Console.Write("Your choice: ");
 
-            string input = Console.ReadLine() ?? string.Empty;
+            string? input = Console.ReadLine() ?? string.Empty;
             if (input.Trim().ToLower() == "n")
             {
                 Console.WriteLine("Returning to the previous menu...");
                 return;
             }
 
+            string? decision = input switch
+            {
+                "1" => "Add New product",
+                "2" => "Remove product",
+                "3" => "Display Products",
+                "4" => "Search Product",
+                "n" or "N" => null,
+                _ => null
+            };
+
+
             if (!int.TryParse(input, out int adminCh))
             {
                 Console.WriteLine("Invalid input.");
                 continue;
             }
+
+            Console.WriteLine($"You have selected to {decision} to store.");
+            Console.WriteLine();
 
             switch (adminCh)
             {
@@ -106,6 +131,25 @@ public class StaffMenu
                             break;
                         }
 
+                        string? nameOfProduct = typeChoice switch
+                        {
+                            1 => "TV",
+                            2 => "Smartphone",
+                            3 => "Laptop",
+                            4 => "Tablet",
+                            5 => "Headphones",
+                            6 => "Smartwatch",
+                            _ => null
+                        };
+
+                        if (nameOfProduct == null)
+                        {
+                            Console.WriteLine("Invalid type selection.");
+                            break;
+                        }
+                        Console.WriteLine();
+                        Console.WriteLine($"You have selected to add {nameOfProduct} to \nthe inventory.");
+                        Console.WriteLine();
                         Console.Write("Enter product ID: ");
                         string productIdInput = Console.ReadLine() ?? string.Empty;
                         if (!int.TryParse(productIdInput, out int productId))
@@ -157,7 +201,7 @@ public class StaffMenu
                                     newProduct = new TV(productId, productName, productBrand, productPrice, productQuantity, "TV", screenResolution, screenSize);
                                     productList.Add(newProduct);
                                     Console.WriteLine();
-                                    Console.WriteLine("TV product added successfully!");
+                                    Console.WriteLine($"{newProduct.ProductQuantity} TV brand {newProduct.ProductBrand} added to store successfully!");
                                 }
                                 break;
                             case 2:
@@ -180,7 +224,7 @@ public class StaffMenu
                                     newProduct = new Smartphone(productId, productName, productBrand, productPrice, productQuantity, "Smartphone", cameraMp, operatingSystem);
                                     productList.Add(newProduct);
                                     Console.WriteLine();
-                                    Console.WriteLine("Smartphone product added successfully!");
+                                    Console.WriteLine($"{newProduct.ProductQuantity} Smartphone brand {newProduct.ProductBrand} added to store successfully!");
                                 }
                                 break;
                             case 3:
@@ -196,12 +240,6 @@ public class StaffMenu
                                     Console.WriteLine("Invalid storage value.");
                                     break;
                                 }
-                                Console.Write("Enter stock quantity: ");
-                                if (!int.TryParse(Console.ReadLine(), out int stock))
-                                {
-                                    Console.WriteLine("Invalid stock value.");
-                                    break;
-                                }
                                 Console.Write("Enter processor model: ");
                                 string processor = Console.ReadLine() ?? string.Empty;
                                 Console.Write("Enter laptop display size (in inches): ");
@@ -213,7 +251,7 @@ public class StaffMenu
                                 Product? existingLaptop = productList.Find(p => string.Equals(p.ProductName, productName, StringComparison.OrdinalIgnoreCase) && string.Equals(p.ProductType, "Laptop", StringComparison.OrdinalIgnoreCase));
                                 if (existingLaptop != null)
                                 {
-                                   
+                                    Console.WriteLine();
                                     existingLaptop.ChangeQuantity(productQuantity);
                                     Console.WriteLine($"Laptop product already exists. Updated quantity to {existingLaptop.ProductQuantity}.");
                                 }
@@ -222,7 +260,7 @@ public class StaffMenu
                                     newProduct = new Laptop(productId, productName, productBrand, productPrice, productQuantity, "Laptop", laptopRam, storage, processor, size);
                                     productList.Add(newProduct);
                                     Console.WriteLine();
-                                    Console.WriteLine("Laptop product added successfully!");
+                                    Console.WriteLine($"{newProduct.ProductQuantity} Laptop brand {newProduct.ProductBrand} added to store successfully!");
                                 }
                                 break;
                             case 4:
@@ -243,7 +281,7 @@ public class StaffMenu
                                     newProduct = new Tablet(productId, productName, productBrand, productPrice, productQuantity, "Tablet", tabletSize, 0);
                                     productList.Add(newProduct);
                                     Console.WriteLine();
-                                    Console.WriteLine("Tablet product added successfully!");
+                                    Console.WriteLine($"{newProduct.ProductQuantity} Tablet brand {newProduct.ProductBrand} added to store successfully!");
                                 }
                                 break;
                             case 5:
@@ -262,7 +300,7 @@ public class StaffMenu
                                         headphoneType.Equals("noise-cancelling", StringComparison.OrdinalIgnoreCase));
                                     productList.Add(newProduct);
                                     Console.WriteLine();
-                                    Console.WriteLine("Headphones product added successfully!");
+                                    Console.WriteLine($"{newProduct.ProductQuantity} Headphones brand {newProduct.ProductBrand} added to store successfully!");
                                 }
                                 break;
                             case 6:
@@ -287,7 +325,7 @@ public class StaffMenu
                                         smartwatchType.Equals("heart-rate-monitor", StringComparison.OrdinalIgnoreCase));
                                     productList.Add(newProduct);
                                     Console.WriteLine();
-                                    Console.WriteLine("Smartwatch product added successfully!");
+                                    Console.WriteLine($"{newProduct.ProductQuantity} Smartwatch brand {newProduct.ProductBrand} added to store successfully!");
                                 }
                                 break;
                             
@@ -362,25 +400,37 @@ public class StaffMenu
                     break;
                 case 4:
                     // Search for a product by name in the current inventory.
-                    Console.WriteLine();
-                    Console.WriteLine("|             Search Product               |");
-                    Console.WriteLine("|------------------------------------------|");
-                    Console.WriteLine();
-                    Console.Write("Enter the product name to search: ");
-                    string searchName = Console.ReadLine() ?? string.Empty;
-                    Product? foundProduct = Product.SearchProduct(productList, searchName);
-                    if (foundProduct != null)
+                    try
                     {
-                        foundProduct.DisplayInfo();
+                        Console.WriteLine();
+                        Console.WriteLine("|             Search Product               |");
+                        Console.WriteLine("|------------------------------------------|");
+                        Console.WriteLine();
+                        Console.Write("Enter the product name to search: ");
+                        string searchName = Console.ReadLine() ?? string.Empty;
+                        Product? foundProduct = Product.SearchProduct(productList, searchName);
+                        if (foundProduct != null)
+                        {
+                            foundProduct.DisplayInfo();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Product not found.");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        Console.WriteLine("Product not found.");
+                        Console.WriteLine($"An error occurred: {ex.Message}");
                     }
                     break;
                 default:
                     Console.WriteLine("Invalid choice.");
                     break;
+            }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
         while (true);

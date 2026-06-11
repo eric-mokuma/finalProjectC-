@@ -34,6 +34,9 @@ public class Laptop:Product
         Size = size;
     }
 
+    public override string ProductDescription =>
+        $"RAM: {LaptopRAM}GB, Storage: {Storage}GB, Processor: {Processor}, Size: {Size} inches";
+
     public override void DisplayInfo()
     {
         base.DisplayInfo();

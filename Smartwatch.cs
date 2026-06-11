@@ -18,6 +18,9 @@ public bool HasHeartRateMonitor { get { return hasHeartRateMonitor; } set { hasH
         HasHeartRateMonitor = hasHeartRateMonitor;
     }
  
+    public override string ProductDescription =>
+        $"Waterproof: {Waterproof}, Heart Rate Monitor: {HasHeartRateMonitor}";
+
 //Method: Display smartwatch information
     public override void DisplayInfo()
     {
