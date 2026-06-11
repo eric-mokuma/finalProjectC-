@@ -23,12 +23,12 @@ public class CustomerMenu
                 Console.WriteLine();
                 Console.WriteLine("|                Customer Login            |");
                 Console.WriteLine("--------------------------------------------");
-                Console.WriteLine("| n. | To go back to previous menu         |");
+                Console.WriteLine("| p. | To go back to previous menu         |");
                 Console.WriteLine("---------------------------------------------");
                 Console.WriteLine();
                 Console.Write("Enter your Username: ");
                 string user = Console.ReadLine() ?? string.Empty;
-                if (user.Trim().ToLower() == "n")
+                if (user.Trim().ToLower() == "p")
                 {
                     Console.WriteLine("Returning to the previous menu...");
                     return;
@@ -67,72 +67,99 @@ public class CustomerMenu
         } while (!isAuthenticated);
     }
 
-        public void ShowMenu()
-        {
-            int choice = 0;
-            do
+    public void ShowMenu()
+    {
+        int choice = 0;
+        do
         {
             try
             {
-            Console.WriteLine();
-            Console.WriteLine("|                CUSTOMER MENU.            |");
-            Console.WriteLine("|------------------------------------------|");
-            Console.WriteLine("| 1. | View the list of the Products       |");//List the products by category, then the user can choose which category of the products they want to view.
-            Console.WriteLine("| 2. | Add the product to Cart             |");//The user can add the product to the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will add the product to the cart.
-            Console.WriteLine("| 3. | Remove the product from the Cart    |");//The user can remove the product from the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will remove the product from the cart.
-            Console.WriteLine("| 4. | Search the product(s)               |");//The user can search the product by entering the keyword, then the system will search the product from the list and display the search result to the user.
-            Console.WriteLine("| 5. | Go to Cart                          |");//The user can view the items in their cart and manage them.
-            Console.WriteLine("| 6. | Exit                                |");
-            Console.WriteLine("| n. | To go back to previous menu         |");
-            Console.WriteLine("|------------------------------------------|");
-            Console.WriteLine();
-            Console.Write("Please enter your choice: ");
-            Console.WriteLine();
-            string menuInput = Console.ReadLine() ?? string.Empty;
-            if (menuInput.Trim().ToLower() == "n")
-            {
-                Console.WriteLine("Returning to the previous menu...");
-                return;
-            }
+                Console.WriteLine();
+                Console.WriteLine("|                CUSTOMER MENU.            |");
+                Console.WriteLine("|------------------------------------------|");
+                Console.WriteLine("| 1. | View All Products                   |");
+                Console.WriteLine("| 2. | View Products by Category           |");//List the products by category, then the user can choose which category of the products they want to view.
+                Console.WriteLine("| 3. | Add the product to Cart             |");//The user can add the product to the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will add the product to the cart.
+                Console.WriteLine("| 4. | Remove the product from the Cart    |");//The user can remove the product from the cart by entering the product ID, then the system will check if the product ID is valid and if it is, it will remove the product from the cart.
+                Console.WriteLine("| 5. | Search the product(s)               |");//The user can search the product by entering the keyword, then the system will search the product from the list and display the search result to the user.
+                Console.WriteLine("| 6. | Go to Cart                          |");//The user can view the items in their cart and manage them.
+                Console.WriteLine("| 7. | Checkout                            |");//Complete purchase and reduce stock quantity.
+                Console.WriteLine("| 8. | Exit                                |");
+                Console.WriteLine("| p. | To go back to previous menu         |");
+                Console.WriteLine("|------------------------------------------|");
+                Console.WriteLine();
+                Console.Write("Please enter your choice: ");
+                Console.WriteLine();
+                string menuInput = Console.ReadLine() ?? string.Empty;
+                if (menuInput.Trim().ToLower() == "p")
+                {
+                    Console.WriteLine("Returning to the previous menu...");
+                    return;
+                }
 
-            if (!int.TryParse(menuInput.Trim(), out choice))
-            {
-                Console.WriteLine("Invalid choice, please try again.");
-                continue;
-            }
-
-            switch (choice)
-            {
-                case 1:
-                    ViewProductsMenu();
-                    break;
-                case 2:
-                    cart.AddProduct();
-                    break;
-                case 3:
-                    cart.RemoveProduct();
-                    break;
-                case 4:
-                    SearchProducts();
-                    break;
-                case 5:
-                    cart.DisplayCart();
-                    break;
-                case 6:
-                        Console.WriteLine("Thank you for shopping with us. See you next time!");
-                    break;
-                default:
+                if (!int.TryParse(menuInput.Trim(), out choice))
+                {
                     Console.WriteLine("Invalid choice, please try again.");
-                    break;
+                    continue;
+                }
+
+                switch (choice)
+                {
+                    case 1:
+                        ViewAllProducts();
+                        break;
+                    case 2:
+                        ViewProductsMenu();
+                        break;
+                    case 3:
+                        cart.AddProduct();
+                        break;
+                    case 4:
+                        cart.RemoveProduct();
+                        break;
+                    case 5:
+                        SearchProducts();
+                        break;
+                    case 6:
+                        cart.DisplayCart();
+                        break;
+                    case 7:
+                        cart.Checkout();
+                        break;
+                    case 8:
+                        Console.WriteLine("Thank you for shopping with us. See you next time!");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice, please try again.");
+                        break;
                 }//End of switch
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            } while (choice != 6); 
-        }
+        } while (choice != 7);
+    }
         //Method: View products by category, the user can choose which category of the products they want to view.
+        
+        public void ViewAllProducts()
+        {
+            Console.WriteLine("------------ All Products ------------");
+            foreach (var product in allProducts)
+            {
+                if (product.ProductQuantity > 0)
+                {
+                    Console.WriteLine($"ID: {product.ProductID}, Name: {product.ProductName}, Price: ${product.ProductPrice}");
+                    Console.WriteLine($"Product Description: {product.ProductDescription}");
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.WriteLine($"{product.ProductName} is out of stock.");
+                    Console.WriteLine();
+                }
+            }
+        }
         private void ViewProductsMenu()
         {
             do
@@ -149,13 +176,13 @@ public class CustomerMenu
                 Console.WriteLine(" |  4. | Tablet                            |");
                 Console.WriteLine(" |  5. | Smartphone                        |");
                 Console.WriteLine(" |  6. | Smartwatch                        |");
-                Console.WriteLine(" |  n. | To go back to previous menu       |");
+                Console.WriteLine(" |  p. | To go back to previous menu       |");
                 Console.WriteLine(" |-----------------------------------------|");
                 Console.WriteLine();
-                Console.Write("Please choose what type of the products would you like to view: ");
+                Console.Write("Please choose what type of the products would\n you like to view: ");
                 Console.WriteLine();
                 string categoryInput = Console.ReadLine() ?? string.Empty;
-                if (categoryInput.Trim().ToLower() == "n")
+                if (categoryInput.Trim().ToLower() == "p")
                 {
                     Console.WriteLine("Returning to the previous menu...");
                     return;
@@ -176,7 +203,7 @@ public class CustomerMenu
                         category = "Laptop";
                         break;
                     case 2:
-                        category = "Headphone";
+                        category = "Headphones";
                         break;
                     case 3:
                         category = "TV";
@@ -200,11 +227,18 @@ public class CustomerMenu
 
                 Console.WriteLine($"------------ {category} Products ------------");
 
+                if (categoryProducts.Count == 0)
+                {
+                    Console.WriteLine($"No {category} products found.");
+                    Console.WriteLine();
+                    continue;
+                }
+
                 foreach (var product in categoryProducts)
                 {
                     if (product.ProductQuantity > 0)
                     {
-                        Console.WriteLine($"ID: {product.ProductID}, Name: {product.ProductName}, Price: ${product.ProductPrice}");//May neeed to change the property name to match with the products class
+                        Console.WriteLine($"ID: {product.ProductID}, Name: {product.ProductName}, Price: ${product.ProductPrice}");
                         Console.WriteLine($"Product Description: {product.ProductDescription}");
                         Console.WriteLine();
                     }
@@ -228,7 +262,7 @@ public class CustomerMenu
         {
             try
             {
-                Console.Write("Enter the keyword of the product that you would like to search: ");
+                Console.Write("Enter the keyword of the product that\n you would like to search: ");
                 string keyword = Convert.ToString(Console.ReadLine() ?? string.Empty);
 
                 List<Product> result = allProducts.Where(p => p.ProductName.Contains(keyword, StringComparison.OrdinalIgnoreCase)).ToList();
@@ -239,13 +273,23 @@ public class CustomerMenu
 
                     foreach (var product in result)
                     {
-                        Console.WriteLine(
-                            $"ID: {product.ProductID}, Name: {product.ProductName}, Price: ${product.ProductPrice}");
+                        if (product.ProductQuantity > 0)
+                        {
+                            Console.WriteLine($"ID: {product.ProductID}, Name: {product.ProductName}, Price: ${product.ProductPrice}");
+                            Console.WriteLine($"Product Description: {product.ProductDescription}");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{product.ProductName} is out of stock.");
+                            Console.WriteLine();
+                        }
                     }
                 }
                 else
                 {
                     Console.WriteLine("No products found.");
+                    Console.WriteLine();
                 }
             }
             catch (Exception ex)

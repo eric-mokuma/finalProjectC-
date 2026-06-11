@@ -285,7 +285,7 @@ public class StaffMenu
                                 }
                                 break;
                             case 5:
-                                Console.Write("Enter headphone type (e.g., over-ear, in-ear): ");
+                                Console.Write("Enter headphone type (e.g., over-ear, in-ear) true/false: ");
                                 string headphoneType = Console.ReadLine() ?? string.Empty;
                                 Product? existingHeadphones = productList.Find(p => string.Equals(p.ProductName, productName, StringComparison.OrdinalIgnoreCase) && string.Equals(p.ProductType, "Headphones", StringComparison.OrdinalIgnoreCase));
                                 if (existingHeadphones != null)
@@ -310,7 +310,7 @@ public class StaffMenu
                                     Console.WriteLine("Invalid smartwatch size.");
                                     break;
                                 }
-                                Console.Write("Enter smartwatch type (e.g., waterproof, heart-rate-monitor): ");
+                                Console.Write("Enter smartwatch type (e.g., waterproof, heart-rate-monitor) true/false: ");
                                 string smartwatchType = Console.ReadLine() ?? string.Empty;
                                 Product? existingWatch = productList.Find(p => string.Equals(p.ProductName, productName, StringComparison.OrdinalIgnoreCase) && string.Equals(p.ProductType, "Smartwatch", StringComparison.OrdinalIgnoreCase));
                                 if (existingWatch != null)

@@ -26,6 +26,9 @@ public class Product
     public string ProductType { get { return productType; } set { productType = value; } }
     public int NumberOfPurchase { get { return numberOfPurchase; } set { numberOfPurchase = value; } }
 
+    // stock balance to maintain compatibility with existing code.
+    public int BalanceInStock { get { return ProductQuantity; } }
+
     // Constructor initializes required product data.
     public Product(int prodID, string prodName, string prodBrand, double prodPrice, int prodQuantity, string prodType)
     {
@@ -43,7 +46,7 @@ public class Product
     //Writes all visible product details to the console.
     public virtual void DisplayInfo()
     {
-        Console.WriteLine($"\n Product ID: \t{ProductID} \n Product Name: \t{ProductName} \n Product Brand: \t{ProductBrand} \n Product Price: \t{ProductPrice} \n Product Quantity: \t{ProductQuantity}  \n Number of Purchases: \t{NumberOfPurchase}");
+        Console.WriteLine($"\n Product ID: \t{ProductID} \n Product Name: \t{ProductName} \n Product Brand: \t{ProductBrand} \n Product Price: \t{ProductPrice} \n Product Quantity: \t{ProductQuantity}  \n Number of Purchases: \t{NumberOfPurchase} \n Balance in the stock: \t{BalanceInStock}");
     }
 
    

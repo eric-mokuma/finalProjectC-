@@ -4,7 +4,7 @@ public class Smartwatch : Product
 {
 //Fields
 private bool waterproof;
-    private bool hasHeartRateMonitor;
+private bool hasHeartRateMonitor;
 
 //Properties
 public bool Waterproof { get{ return waterproof; } set { waterproof = value; } }
